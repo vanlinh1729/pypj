@@ -13,7 +13,7 @@
             const param3 = document.getElementById("param3").value;
 
             // Gọi API bằng GET request với các tham số
-            const url = `http://localhost:8000/predict?tvadp=${param1}&radadp=${param2}&newsadp=${param3}`;
+            const url = `https://pypj.onrender.com/predict?tvadp=${param1}&radadp=${param2}&newsadp=${param3}`;
             
             try {
                 const response = await fetch(url);
