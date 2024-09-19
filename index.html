@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Prediction Form</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <script>
+        async function getPrediction() {
+            // Lấy giá trị từ các input trên giao diện
+            const param1 = document.getElementById("param1").value;
+            const param2 = document.getElementById("param2").value;
+            const param3 = document.getElementById("param3").value;
+
+            // Gọi API bằng GET request với các tham số
+            const url = `http://localhost:8000/predict?tvadp=${param1}&radadp=${param2}&newsadp=${param3}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Hiển thị kết quả trả về trên giao diện
+                document.getElementById("result").textContent = "Sales Price: " + data.salesPrice;
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">API Prediction Form</h1>
+        
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="param1" class="form-label">Parameter 1</label>
+                                <input type="number" class="form-control" id="param1" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="param2" class="form-label">Parameter 2</label>
+                                <input type="number" class="form-control" id="param2" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="param3" class="form-label">Parameter 3</label>
+                                <input type="number" class="form-control" id="param3" required>
+                            </div>
+
+                            <button type="button" class="btn btn-primary w-100" onclick="getPrediction()">Get Prediction</button>
+                        </form>
+                    </div>  
+                </div>
+
+                <div class="mt-4">
+                    <h4 class="text-center">Result</h4>
+                    <p id="result" class="text-center text-success"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
